@@ -1,0 +1,385 @@
+# Read `man 5 sway` for a complete reference.
+
+### Variables
+#
+# Logo key. Use Mod1 for Alt.
+set $mod Mod4
+
+set $up k
+set $down j
+set $left h
+set $right l 
+set $term alacritty
+set $menu xfce4-appfinder
+
+# USER APPLICATIONS TO START AT BOOT
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+exec_always --no-startup-id autotiling
+exec --no-startup-id xfce4-power-manager &
+
+# TRAY APPLICATIONS
+# exec --no-startup-id dropbox start
+# exec --no-startup-id megasync
+
+# redshift -l 52.377956:4.897070
+# redshift -l 52.4:4.9 -t 5700:3600 -g 0.8 -m randr -v
+
+################# My keybindings
+
+################# start dmenu
+bindsym $mod+shift+d exec --no-startup-id dmenu_run -i -nb '#191919' -nf '#fea63c' -sb '#fea63c' -sf '#191919' -fn 'NotoMonoRegular:bold:pixelsize=14'
+
+################# Thunar
+for_window [app_id="Thunar"] focus
+bindsym $mod+Shift+Return exec --no-startup-id thunar;focus
+bindsym $mod+Shift+KP_Enter exec --no-startup-id thunar;focus
+
+bindsym $mod+mod1+a exec --no-startup-id pavucontrol-qt;focus
+bindsym $mod+mod1+b exec --no-startup-id firefox;focus;border none
+bindsym $mod+mod1+Shift+b exec --no-startup-id brave;focus;border none
+bindsym $mod+mod1+c exec --no-startup-id code;focus
+bindsym $mod+mod1+e exec urxvt -e vim;focus
+bindsym $mod+mod1+f exec --no-startup-id catfish;focus;border none
+bindsym $mod+mod1+g exec --no-startup-id gimp;focus
+bindsym $mod+mod1+m exec --no-startup-id xfce4-settings-manager
+bindsym $mod+mod1+p exec --no-startup-id pragha;focus
+bindsym $mod+mod1+q exec --no-startup-id qbittorrent;exec "notify-send 'QBitTorrent' 'Started'";focus
+bindsym $mod+mod1+r exec urxvt -e ranger;focus
+bindsym $mod+mod1+shift+s exec --no-startup-id catfish;focus
+bindsym $mod+mod1+s exec --no-startup-id subl;focus
+bindsym $mod+mod1+t exec --no-startup-id telegram-desktop;focus
+bindsym $mod+mod1+v exec gnome-boxes;focus;exec "notify-send 'Gnome-Boxes' 'Started'"
+bindsym $mod+mod1+y exec --no-startup-id freeciv-gtk3;exec --no-startup-id pactl set-sink-volume 0 20%;bar mode hide;exec i3-msg workspace $ws5;
+bindsym $mod+mod1+z exec --no-startup-id xfce4-taskmanager;focus
+# bindsym control+mod1+p exec --no-startup-id pamac-manager
+bindsym $mod+mod1+i exec --no-startup-id xfce4-popup-clipman;focus
+
+bindsym $mod+o floating toggle; [floating] resize set 1500 1180; move position 220 24
+bindsym $mod+p floating toggle; [floating] resize set 1500 400; move position 220 24
+
+### Output configuration
+#
+# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+output * bg ~/Pictures/Wallpapers/startscreen.png fill
+bindsym $mod+mod1+w exec --no-startup-id waypaper
+#
+# Example configuration:
+#
+#   output HDMI-A-1 resolution 1920x1080 position 1920,0
+#
+# You can get the names of your outputs by running: swaymsg -t get_outputs
+
+### Idle configuration
+
+exec swayidle -w \
+    timeout 600 'swaylock -f -c 000000' \
+    timeout 1200 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+    before-sleep 'swaylock -f -c 000000'
+
+# This will lock your screen after 300 seconds of inactivity, then turn off
+# your displays after another 300 seconds, and turn your screens back on when
+# resumed. It will also lock your screen before your computer goes to sleep.
+
+### Input configuration
+#
+# Example configuration:
+#
+#   input "2:14:SynPS/2_Synaptics_TouchPad" {
+#       dwt enabled
+#       tap enabled
+#       natural_scroll enabled
+#       middle_emulation enabled
+#   }
+#
+# You can get the names of your inputs by running: swaymsg -t get_inputs
+# Read `man 5 sway-input` for more information about this section.
+
+
+
+for_window [app_id="Xfce4-appfinder"] floating enable
+
+
+### Key bindings
+#
+# Basics:
+#
+    # Start a terminal
+    bindsym $mod+Return exec $term
+    bindsym $mod+KP_Enter exec --no-startup-id $term;focus
+
+    # Kill focused window
+    bindsym $mod+q kill
+    bindsym $mod+Shift+q kill
+
+    # Start your launcher
+    bindsym $mod+d exec $menu
+
+    # Drag floating windows by holding down $mod and left mouse button.
+    # Resize them with right mouse button + $mod.
+    # Despite the name, also works for non-floating windows.
+    # Change normal to inverse to use left mouse button for resizing and right
+    # mouse button for dragging.
+    floating_modifier $mod normal
+
+    # Reload the configuration file
+    bindsym $mod+Shift+c reload
+
+    # Exit sway (logs you out of your Wayland session)
+    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+#
+# Moving around:
+#
+    # Move your focus around
+    bindsym $mod+$left focus left
+    bindsym $mod+$down focus down
+    bindsym $mod+$up focus up
+    bindsym $mod+$right focus right
+    # Or use $mod+[up|down|left|right]
+    bindsym $mod+Left focus left
+    bindsym $mod+Down focus down
+    bindsym $mod+Up focus up
+    bindsym $mod+Right focus right
+
+    # Move the focused window with the same, but add Shift
+    bindsym $mod+Shift+$left move left
+    bindsym $mod+Shift+$down move down
+    bindsym $mod+Shift+$up move up
+    bindsym $mod+Shift+$right move right
+    # Ditto, with arrow keys
+    bindsym $mod+Shift+Left move left
+    bindsym $mod+Shift+Down move down
+    bindsym $mod+Shift+Up move up
+    bindsym $mod+Shift+Right move right
+
+################# moving around workspaces         
+    # next/previous workspace
+    bindsym Mod1+Tab workspace next
+    bindsym Mod1+Shift+Tab workspace prev
+    bindsym $mod+Tab workspace back_and_forth
+    # navigate workspaces next / previous
+    bindsym Mod1+Ctrl+Right workspace next
+    bindsym Mod1+Ctrl+Left workspace prev
+    # switch to workspace with urgent window automatically
+    for_window [urgent=latest] focus
+    # if automaticaly fails
+    bindsym $mod+x [urgent=latest] focus
+
+#
+# Workspaces:
+#
+# Icons from: https://fontawesome.com/v5/cheatsheet/free/solid
+# Need to set workspace names (1..10) without displaying (strip_workspace_numbers yes) to show the icons in correct order
+set $ws1 "1: "
+set $ws2 "2: "
+set $ws3 "3: "
+set $ws4 "4: "
+set $ws5 "5: "
+set $ws6 "6:🕵 "
+set $ws7 "7: "
+set $ws8 "8: "
+set $ws9 "9: "
+set $ws10 "10: " 
+
+# switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+workspace $ws1 output $secondMonitor
+workspace $ws2 output $firstMonitor
+workspace $ws3 output $firstMonitor
+workspace $ws4 output $firstMonitor
+workspace $ws5 output $firstMonitor 
+workspace $ws6 output $secondMonitor
+workspace $ws7 output $secondMonitor
+workspace $ws8 output $secondMonitor
+workspace $ws9 output $firstMonitor
+workspace $ws10 output $firstMonitor
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1; workspace $ws1 
+bindsym $mod+Shift+2 move container to workspace $ws2; workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3; workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4; workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5; workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6; workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10; workspace $ws10
+
+################# assign applications to workspaces 
+# Assign application to start on a specific workspace - you can find the app_id with the program xprop
+# assign [app_id="Firefox|firefox"]                                → $ws2
+# assign [app_id="Code|code"]                                      → $ws4
+# assign [app_id="brave-browser|Brave-browser"]                    → $ws5
+# assign [app_id="libreoffice|libreoffice-writer"]                 → $ws5
+# assign [app_id="freeciv-gtk3|Freeciv-gtk3|Freeciv"]              → $ws5
+# assign [app_id="Qutebrowser|qutebrowser|chromium"]               → $ws6
+# assign [app_id="qbittorrent|qBittorrent"]                        → $ws6
+# assign [app_id="telegram-desktop"]                               → $ws7
+# assign [app_id="Pragha|pragha|Gimp"]                             → $ws8
+# assign [app_id="Gnome-boxes|gnome-boxes"]		                → $ws9
+# assign [app_id="vlc"]                                            → $ws10
+
+################# floating or tiled rules         
+for_window [floating] move position center
+for_window [title="copying"] floating enable
+for_window [title="deleting"] floating enable
+for_window [title="moving"] floating enable
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="^preferences$"] floating enable
+for_window [window_role="setup"] floating enable
+
+################# floating enabled from some programs - find with xprop
+# for_window [app_id="Arcolinux-tweak-tool.py"] floating enable
+for_window [app_id="arcolinux-calamares-tool.py"] floating enable
+for_window [app_id="bleachbit"] floating disable
+for_window [app_id="blueberry.py"] floating enable
+# for_window [app_id="Brasero"] floating disable
+# for_window [app_id="Galculator"] floating enable
+for_window [app_id="gnome-disks"] floating disable
+for_window [app_id="^gnome-font-viewer$"] floating enable
+# for_window [app_id="Hexchat"] floating disable
+for_window [app_id="imagewriter"] floating enable
+for_window [app_id="font-manager"] floating enable
+for_window [app_id="nitrogen"] floating disable
+for_window [app_id="pavucontrol"] floating disable
+for_window [app_id="peek"] floating enable
+# for_window [app_id="^Spotify$"] floating disable
+for_window [app_id="System-config-printer.py"] floating enable
+for_window [app_id="usb-creator-gtk"] floating enable
+for_window [app_id="^vlc$"] floating disable
+# for_window [app_id="Wine"] floating disable
+for_window [app_id="xfburn"] floating disable
+for_window [app_id="xfce4-appfinder"] floating enable
+for_window [app_id="xfce4-settings-manager"] floating disable
+for_window [app_id="xfce4-taskmanager"] floating enable
+for_window [instance="variety"] floating disable
+for_window [title="^terminator Preferences$"] floating enable
+for_window [instance="gimp"] floating disable
+for_window [window_role="^gimp-toolbox-color-dialog$"] floating enable
+
+
+################# audio
+bindsym mod1+F10 exec --no-startup-id pactl set-sink-volume 0 -5%
+bindsym mod1+F11 exec --no-startup-id pactl set-sink-volume 0 +5%
+bindsym mod1+F12 exec --no-startup-id pactl set-sink-mute 0 toggle
+bindsym $mod+mod1+F10 exec --no-startup-id pactl set-sink-volume 0 25%
+bindsym $mod+mod1+F11 exec --no-startup-id pactl set-sink-volume 0 85%
+
+################ playctl
+bindsym mod1+Shift+F10 exec --no-startup-id playerctl next
+bindsym mod1+Shift+F11 exec --no-startup-id playerctl play-pause
+bindsym mod1+Shift+F12 exec --no-startup-id playerctl stop
+
+################# xbacklight for laptop                      
+bindsym $mod+F11 exec --no-startup-id xbacklight -dec 20 # decrease screen brightness
+bindsym $mod+F12 exec --no-startup-id xbacklight -inc 20 # increase screen brightness
+
+################# bar toggle                       
+# bindsym $mod+Shift+b bar mode toggle
+
+#
+# Layout stuff:
+#
+    # You can "split" the current object of your focus with
+    # $mod+b or $mod+v, for horizontal and vertical splits
+    # respectively.
+    bindsym $mod+b splith
+    bindsym $mod+v splitv
+
+    # Switch the current container between different layout styles
+    bindsym $mod+s layout stacking
+    bindsym $mod+w layout tabbed
+    bindsym $mod+e layout toggle split
+
+    # Make the current focus fullscreen
+    bindsym $mod+f fullscreen
+
+    # Toggle the current focus between tiling and floating mode
+    bindsym $mod+Shift+space floating toggle
+
+    # Swap focus between the tiling area and the floating area
+    bindsym $mod+space focus mode_toggle
+
+    # Move focus to the parent container
+    bindsym $mod+a focus parent
+#
+# Scratchpad:
+#
+    # Sway has a "scratchpad", which is a bag of holding for windows.
+    # You can send windows there and get them back later.
+
+    # Move the currently focused window to the scratchpad
+    bindsym $mod+Shift+minus move scratchpad
+
+    # Show the next scratchpad window or hide the focused scratchpad window.
+    # If there are multiple scratchpad windows, this command cycles through them.
+    bindsym $mod+minus scratchpad show
+#
+# Resizing containers:
+#
+mode "resize" {
+    # left will shrink the containers width
+    # right will grow the containers width
+    # up will shrink the containers height
+    # down will grow the containers height
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+
+    # Ditto, with arrow keys
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+#
+# Status Bar:
+#
+bindsym $mod+m exec swaymsg bar mode toggle bar-0
+
+default_border none
+default_floating_border none
+font pango:monospace 0
+titlebar_padding 1
+titlebar_border_thickness 0
+
+# Read `man 5 sway-bar` for more information about this section.
+bar {
+    position top
+    swaybar_command waybar
+    hidden_state hide
+    mode dock
+
+    # When the status_command prints a new line to stdout, swaybar updates.
+    # The default just shows the current date and time.
+    status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
+
+    colors {
+        statusline #ffffff
+        background #323232
+        inactive_workspace #32323200 #32323200 #5c5c5c
+    }
+}
+
+################# Popups  control                  
+#popup_during_fullscreen smart
+
+
+include /etc/sway/config.d/*
