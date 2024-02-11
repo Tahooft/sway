@@ -9,24 +9,21 @@ set $right l
 set $term alacritty
 set $menu xfce4-appfinder
 
-# Testing
-
-# xwayland disable
-exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
-# for_window [shell="xwayland"] title_format "[XWayland] %title"
 input type:keyboard xkb_numlock enabled
+focus_follows_mouse no
+
+# Testing
+#  --no-persist
+exec wl-paste -t text --watch clipman store
+
 # outputname = display id = HDMI-A-1
 # swaymsg "output HDMI-A-1 power toggle"
 
-focus_follows_mouse no
-
-# USER APPLICATIONS TO START AT BOOT
+# APPLICATIONS TO START AT BOOT
+exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 exec_always --no-startup-id autotiling
 exec --no-startup-id xfce4-power-manager &
-exec --no-startup-id redshift-gtk -l 53.2:22.3 -t 5700:3600 -g 0.8 -m randr -v &
-#  --no-persist
-exec wl-paste -t text --watch clipman store
 
 # TRAY APPLICATIONS
 # exec --no-startup-id dropbox start
@@ -45,7 +42,7 @@ bindsym $mod+mod1+c exec --no-startup-id code;focus
 bindsym $mod+mod1+e exec alacritty -e vim;focus
 bindsym $mod+mod1+f exec --no-startup-id catfish;focus;border none
 bindsym $mod+mod1+g exec --no-startup-id gimp;focus
-bindsym $mod+mod1+m exec --no-startup-id xfce4-settings-manager
+bindsym $mod+mod1+m exec --no-startup-id nwg-look
 bindsym $mod+mod1+p exec --no-startup-id pragha;focus
 bindsym $mod+mod1+q exec --no-startup-id qbittorrent;exec "notify-send 'QBitTorrent' 'Started'";focus
 bindsym $mod+mod1+r exec alacritty -e ranger;focus
@@ -53,13 +50,19 @@ bindsym $mod+mod1+shift+s exec --no-startup-id catfish;focus
 bindsym $mod+mod1+s exec --no-startup-id subl;focus
 bindsym $mod+mod1+t exec --no-startup-id telegram-desktop;focus
 bindsym $mod+mod1+v exec gnome-boxes;focus;exec "notify-send 'Gnome-Boxes' 'Started'"
-bindsym $mod+mod1+w exec --no-startup-id waypaper
+bindsym $mod+mod1+w exec --no-startup-id azote
 bindsym $mod+mod1+y exec --no-startup-id freeciv-gtk3;exec --no-startup-id pactl set-sink-volume 0 20%;bar mode hide
 bindsym $mod+mod1+z exec --no-startup-id xfce4-taskmanager;focus
 bindsym control+mod1+p exec --no-startup-id pamac-manager
 
 bindsym $mod+o floating toggle; [floating] resize set 1500 1180; move position 220 24
 bindsym $mod+p floating toggle; [floating] resize set 1500 400; move position 220 24
+
+################# Mouse left-or righthanded
+# To find mouse id:  swaymsg -t get_inputs
+input 1133:49232:Logitech_USB-PS/2_Optical_Mouse left_handed disabled
+bindsym $mod+mod1+l input 1133:49232:Logitech_USB-PS/2_Optical_Mouse left_handed enabled
+bindsym $mod+mod1+Shift+l input 1133:49232:Logitech_USB-PS/2_Optical_Mouse left_handed disabled
 
 ### Output configuration
 #
@@ -214,18 +217,18 @@ bindsym $mod+Shift+0 move container to workspace $ws10; workspace $ws10
 
 ################# assign applications to workspaces 
 # Assign application to start on a specific workspace - you can find the app_id with the program xprop
-assign [app_id="firefox"]                                → $ws2
-# assign [app_id="Code|code"]                                      → $ws4
-assign [app_id="brave-browser|Brave-browser"]                    → $ws5
-# assign [app_id="libreoffice|libreoffice-writer"]                 → $ws5
-# assign [app_id="freeciv-gtk3|Freeciv-gtk3|Freeciv"]              → $ws5
-# assign [app_id="Qutebrowser|qutebrowser|chromium"]               → $ws6
-assign [app_id="qbittorrent|org.qbittorrent.qBittorrent"]                        → $ws6
-assign [app_id="org.telegram.desktop"]                               → $ws7
-# assign [app_id="Pragha|pragha|Gimp"]                             → $ws8
-assign [app_id="subl"]                                            → $ws8
+assign [app_id="firefox"]                                       → $ws2
+assign [app_id="code"]                                          → $ws4
+assign [app_id="Brave-browser"]                                 → $ws5
+assign [app_id="libreoffice|libreoffice-writer"]                → $ws5
+assign [app_id="freeciv-gtk3|Freeciv-gtk3|Freeciv"]             → $ws5
+assign [app_id="qutebrowser|chromium"]                          → $ws6
+assign [app_id="qbittorrent|org.qbittorrent.qBittorrent"]       → $ws6
+assign [app_id="org.telegram.desktop"]                          → $ws7
+assign [app_id="pragha|gimp"]                                   → $ws8
+assign [app_id="subl"]                                          → $ws8
 assign [app_id="gnome-boxes|Gnome-boxes"]		                → $ws9
-assign [app_id="vlc"]                                            → $ws10
+assign [app_id="vlc"]                                           → $ws10
 
 ################# floating or tiled rules         
 for_window [floating] move position center
@@ -280,9 +283,8 @@ bindsym mod1+Shift+F12 exec --no-startup-id playerctl stop
 # bindsym $mod+F12 exec --no-startup-id brightnessctl -inc 20 # increase screen brightness
 
 #################  Layout stuff:
-    # You can "split" the current object of your focus with
     # $mod+b or $mod+v, for horizontal and vertical splits respectively.
-    bindsym $mod+b splith
+    bindsym $mod+Shift+v splith
     bindsym $mod+v splitv
 
     # Switch the current container between different layout styles
@@ -335,8 +337,8 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Status Bar:
-bindsym $mod+m exec swaymsg bar mode toggle bar-0
-bindsym $mod+Shift+m exec swaymsg bar mode toggle bar-1
+bindsym $mod+b exec swaymsg bar mode toggle bar-0
+bindsym $mod+Shift+b exec swaymsg bar mode toggle bar-1
 
 default_border none
 default_floating_border none
