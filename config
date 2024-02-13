@@ -230,7 +230,13 @@ assign [app_id="subl"]                                          → $ws8
 assign [app_id="gnome-boxes|Gnome-boxes"]		                → $ws9
 assign [app_id="vlc"]                                           → $ws10
 
-################# floating or tiled rules         
+################# floating or tiled rules
+for_window [title="File Operation Progress"] \
+    floating enable, \
+    border pixel 1, \
+    sticky enable, \
+    resize set width 40 ppt height 30 ppt
+
 for_window [floating] move position center
 for_window [title="copying"] floating enable
 for_window [title="deleting"] floating enable
@@ -239,9 +245,6 @@ for_window [window_role="pop-up"] floating enable
 for_window [window_role="^preferences$"] floating enable
 for_window [window_role="setup"] floating enable
 for_window [app_id="Thunar"] focus
-################# floating enabled from some programs - find with xprop
-# for_window [app_id="Arcolinux-tweak-tool.py"] floating enable
-for_window [app_id="arcolinux-calamares-tool.py"] floating enable
 for_window [app_id="bleachbit"] floating disable
 for_window [app_id="blueberry.py"] floating enable
 # for_window [app_id="Brasero"] floating disable
@@ -258,7 +261,6 @@ for_window [app_id="peek"] floating enable
 for_window [app_id="System-config-printer.py"] floating enable
 for_window [app_id="usb-creator-gtk"] floating enable
 for_window [app_id="^vlc$"] floating disable
-# for_window [app_id="Wine"] floating disable
 for_window [app_id="xfburn"] floating disable
 for_window [app_id="xfce4-appfinder"] floating enable
 for_window [app_id="xfce4-settings-manager"] floating disable
