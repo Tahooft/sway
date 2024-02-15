@@ -1,4 +1,9 @@
-# Read `man 5 sway` for a complete reference.
+# APPLICATIONS TO START AT BOOT
+exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+exec_always --no-startup-id autotiling
+exec --no-startup-id xfce4-power-manager &
+
 ### Variables
 set $mod Mod4
 
@@ -10,24 +15,36 @@ set $term alacritty
 set $menu xfce4-appfinder
 
 input type:keyboard xkb_numlock enabled
-focus_follows_mouse no
 
-# Testing
+##################### Testing
+
+bindsym $mod+g exec --no-startup-id ~/.config/sway/scripts/wallpaper.sh
+
+exec --no-startup-id firefox;focus;border none
+
+focus_follows_mouse yes
+
+# hide mouse after 5 seconds inactivity
+seat * hide_cursor 5000
+
+# Moves mouse to the newly created window
+# output|container|none
+mouse_warping container
+
+################# Popups  control                  
+popup_during_fullscreen smart
 
 # Clipboard {{{
     bindsym $mod+c exec clipman pick -t wofi
     bindsym $mod+Ctrl+c exec clipman clear -t wofi
     exec wl-paste -t text --watch clipman store --max-items=100
+    # For primary clipboard support, also add :
+    exec wl-paste -p -t text --watch clipman store -P --histpath="~/.local/share/clipman-primary.json"
+    exec clipman restore
 # }}}
 
 # outputname = display id = HDMI-A-1
 # swaymsg "output HDMI-A-1 power toggle"
-
-# APPLICATIONS TO START AT BOOT
-exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
-exec_always --no-startup-id autotiling
-exec --no-startup-id xfce4-power-manager &
 
 # TRAY APPLICATIONS
 # exec --no-startup-id dropbox start
@@ -41,7 +58,7 @@ bindsym $mod+Shift+KP_Enter exec --no-startup-id thunar;focus
 
 bindsym $mod+mod1+a exec --no-startup-id pavucontrol-qt;focus
 bindsym $mod+mod1+b exec --no-startup-id firefox;focus;border none
-bindsym $mod+mod1+Shift+b workspace $ws5; exec --no-startup-id brave;border none;
+bindsym $mod+mod1+Shift+b workspace $ws5; exec --no-startup-id brave;border none
 bindsym $mod+mod1+c exec --no-startup-id code;focus
 bindsym $mod+mod1+e exec alacritty -e vim;focus
 bindsym $mod+mod1+f exec --no-startup-id catfish;focus;border none
@@ -220,19 +237,17 @@ bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10; workspace $ws10
 
 ################# assign applications to workspaces 
-# Assign application to start on a specific workspace - you can find the app_id with the program xprop
+# Assign application to start on a specific workspace - use class as application has no app_idd
 assign [app_id="firefox"]                                       → $ws2
-assign [app_id="code"]                                          → $ws4
-assign [app_id="Brave-browser"]                                 → $ws5
-assign [app_id="libreoffice|libreoffice-writer"]                → $ws5
-assign [app_id="freeciv-gtk3|Freeciv-gtk3|Freeciv"]             → $ws5
-assign [app_id="qutebrowser|chromium"]                          → $ws6
+assign [class="code|Code"]                                      → $ws4
+assign [class="brave-browser|Brave-browser"]                    → $ws5
+assign [app_id="qutebrowser|chromium"]                          → $ws5
 assign [app_id="qbittorrent|org.qbittorrent.qBittorrent"]       → $ws6
 assign [app_id="org.telegram.desktop"]                          → $ws7
-assign [app_id="pragha|gimp"]                                   → $ws8
 assign [app_id="subl"]                                          → $ws8
+assign [app_id="pragha|gimp"]                                   → $ws9
 assign [app_id="gnome-boxes|Gnome-boxes"]		                → $ws9
-assign [app_id="vlc"]                                           → $ws10
+# assign [class="vlc"]                                            → $ws10
 
 ################# floating or tiled rules
 for_window [title="File Operation Progress"] \
@@ -289,6 +304,15 @@ bindsym mod1+Shift+F12 exec --no-startup-id playerctl stop
 # bindsym $mod+F12 exec --no-startup-id brightnessctl -inc 20 # increase screen brightness
 
 #################  Layout stuff:
+
+# Gaps between containers
+# gaps inner 0
+# gaps outer 0
+
+# Create only gaps if more then one container
+# smart_gaps on
+
+
     # $mod+b or $mod+v, for horizontal and vertical splits respectively.
     bindsym $mod+Shift+v splith
     bindsym $mod+v splitv
@@ -361,7 +385,7 @@ bar {
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
+#    status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
 
     colors {
         statusline #ffffff
@@ -370,8 +394,8 @@ bar {
     }
 }
 
-################# Popups  control                  
-#popup_during_fullscreen smart
 
+# exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
+# exec hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
 
-include /etc/sway/config.d/*
+#include /etc/sway/config.d/*
