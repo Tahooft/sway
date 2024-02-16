@@ -18,7 +18,7 @@ input type:keyboard xkb_numlock enabled
 
 ##################### Testing
 
-bindsym $mod+g exec --no-startup-id ~/.config/sway/scripts/wallpaper.sh
+bindsym $mod+n exec --no-startup-id ~/.config/sway/scripts/wallpaper.sh
 
 exec --no-startup-id firefox;focus;border none
 
@@ -29,7 +29,7 @@ seat * hide_cursor 5000
 
 # Moves mouse to the newly created window
 # output|container|none
-mouse_warping container
+# mouse_warping container
 
 ################# Popups  control                  
 popup_during_fullscreen smart
@@ -76,12 +76,14 @@ bindsym $mod+mod1+y exec --no-startup-id freeciv-gtk3;exec --no-startup-id pactl
 bindsym $mod+mod1+z exec --no-startup-id xfce4-taskmanager;focus
 bindsym control+mod1+p exec --no-startup-id pamac-manager
 
+bindsym $mod+mod1+u exec --no-startup-id  swaymsg -t get_tree | jq -r '.. | select(.focused?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | grim -g - screenshot.png
+
+
 bindsym $mod+o floating toggle; [floating] resize set 1500 1180; move position 220 24
 bindsym $mod+p floating toggle; [floating] resize set 1500 400; move position 220 24
 
 ################# Mouse left-or righthanded
 # To find mouse id:  swaymsg -t get_inputs
-input 1133:49232:Logitech_USB-PS/2_Optical_Mouse left_handed disabled
 bindsym $mod+mod1+l input 1133:49232:Logitech_USB-PS/2_Optical_Mouse left_handed enabled
 bindsym $mod+mod1+Shift+l input 1133:49232:Logitech_USB-PS/2_Optical_Mouse left_handed disabled
 
@@ -240,7 +242,7 @@ bindsym $mod+Shift+0 move container to workspace $ws10; workspace $ws10
 # Assign application to start on a specific workspace - use class as application has no app_idd
 assign [app_id="firefox"]                                       → $ws2
 assign [class="code|Code"]                                      → $ws4
-assign [class="brave-browser|Brave-browser"]                    → $ws5
+# assign [class="brave-browser|Brave-browser"]                    → $ws5
 assign [app_id="qutebrowser|chromium"]                          → $ws5
 assign [app_id="qbittorrent|org.qbittorrent.qBittorrent"]       → $ws6
 assign [app_id="org.telegram.desktop"]                          → $ws7
@@ -313,34 +315,34 @@ bindsym mod1+Shift+F12 exec --no-startup-id playerctl stop
 # smart_gaps on
 
 
-    # $mod+b or $mod+v, for horizontal and vertical splits respectively.
-    bindsym $mod+Shift+v splith
-    bindsym $mod+v splitv
+# $mod+b or $mod+v, for horizontal and vertical splits respectively.
+bindsym $mod+Shift+v splith
+bindsym $mod+v splitv
 
-    # Switch the current container between different layout styles
-    bindsym $mod+s layout stacking
-    bindsym $mod+w layout tabbed
-    bindsym $mod+e layout toggle split
+# Switch the current container between different layout styles
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
 
-    # Make the current focus fullscreen
-    bindsym $mod+f fullscreen
+# Make the current focus fullscreen
+bindsym $mod+f fullscreen
 
-    # Toggle the current focus between tiling and floating mode
-    bindsym $mod+Shift+space floating toggle
+# Toggle the current focus between tiling and floating mode
+bindsym $mod+Shift+space floating toggle
 
-    # Swap focus between the tiling area and the floating area
-    bindsym $mod+space focus mode_toggle
+# Swap focus between the tiling area and the floating area
+bindsym $mod+space focus mode_toggle
 
-    # Move focus to the parent container
-    bindsym $mod+a focus parent
+# Move focus to the parent container
+bindsym $mod+a focus parent
 
 ############### Scratchpad:Cm
-    # Move the currently focused window to the scratchpad
-    bindsym $mod+Shift+minus move scratchpad
+# Move the currently focused window to the scratchpad
+bindsym $mod+Shift+minus move scratchpad
 
-    # Show the next scratchpad window or hide the focused scratchpad window.
-    # If there are multiple scratchpad windows, this command cycles through them.
-    bindsym $mod+minus scratchpad show
+# Show the next scratchpad window or hide the focused scratchpad window.
+# If there are multiple scratchpad windows, this command cycles through them.
+bindsym $mod+minus scratchpad show
 #
 # Resizing containers:
 #
