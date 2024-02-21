@@ -384,6 +384,12 @@ bindsym $mod+b exec swaymsg bar mode toggle
 bindsym $mod+Ctrl+b exec swaymsg bar mode toggle bar-0
 bindsym $mod+Shift+b exec swaymsg bar mode toggle bar-1
 
+default_border none
+default_floating_border none
+font pango:monospace 0
+titlebar_padding 0
+titlebar_border_thickness 0
+
 bar {
     id bar-0
     swaybar_command waybar
