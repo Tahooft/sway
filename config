@@ -379,34 +379,26 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-# Status Bar:
-bindsym $mod+b exec swaymsg bar mode toggle bar-0
+# Status Bar - Thanks to: https://github.com/pinselimo/dotfiles/blob/main/.config/sway/config a seperate config for two bars. 
+bindsym $mod+b exec swaymsg bar mode toggle
+bindsym $mod+Ctrl+b exec swaymsg bar mode toggle bar-0
 bindsym $mod+Shift+b exec swaymsg bar mode toggle bar-1
 
-default_border none
-default_floating_border none
-font pango:monospace 0
-titlebar_padding 1
-titlebar_border_thickness 0
-
-# Read `man 5 sway-bar` for more information about this section.
 bar {
-    position top
+    id bar-0
     swaybar_command waybar
-    hidden_state hide
+    position top
     mode dock
-
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-#    status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
-
-    colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
-    }
+    modifier Mod4
 }
 
+bar {
+    id bar-1
+    swaybar_command ""
+    position bottom
+    mode dock
+    modifier none
+}
 
 # exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
 # exec hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
