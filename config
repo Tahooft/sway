@@ -1,6 +1,10 @@
 # APPLICATIONS TO START AT BOOT
-exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+# exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
+exec hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+
 exec_always --no-startup-id autotiling
 exec --no-startup-id xfce4-power-manager &
 
@@ -17,6 +21,15 @@ set $menu xfce4-appfinder
 input type:keyboard xkb_numlock enabled
 
 ##################### Testing
+
+mode "logs" {
+    bindsym a exec alacritty -e nvim;mode "default";focus
+
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+i exec "notify-send 'a' 'Start Neovim'";mode "logs"
 
 exec --no-startup-id blueman-applet &
 
@@ -270,9 +283,9 @@ for_window [title="File Operation Progress"] \
     resize set width 40 ppt height 30 ppt
 
 for_window [floating] move position center
-for_window [title="copying"] floating enable
-for_window [title="deleting"] floating enable
-for_window [title="moving"] floating enable
+# for_window [title="copying"] floating enable
+# for_window [title="deleting"] floating enable
+# for_window [title="moving"] floating enable
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="^preferences$"] floating enable
 for_window [window_role="setup"] floating enable
@@ -387,7 +400,7 @@ bindsym $mod+Shift+b exec swaymsg bar mode toggle bar-1
 default_border none
 default_floating_border none
 font pango:monospace 0
-titlebar_padding 0
+titlebar_padding 1
 titlebar_border_thickness 0
 
 bar {
