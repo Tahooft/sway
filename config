@@ -72,7 +72,7 @@ bindsym $mod+mod1+g exec --no-startup-id gimp;focus
 bindsym $mod+mod1+m exec --no-startup-id nwg-look
 bindsym $mod+mod1+p exec --no-startup-id pragha;focus
 bindsym $mod+mod1+q exec --no-startup-id qbittorrent;exec "notify-send 'QBitTorrent' 'Started'";focus
-bindsym $mod+mod1+r exec urxvt -e ranger;focus
+bindsym $mod+mod1+r exec alacritty -e ranger;focus
 bindsym $mod+mod1+shift+s exec --no-startup-id catfish;focus
 bindsym $mod+mod1+s exec --no-startup-id subl;focus
 bindsym $mod+mod1+t exec --no-startup-id telegram-desktop;focus
@@ -82,7 +82,6 @@ bindsym $mod+mod1+y exec --no-startup-id freeciv-gtk3;exec --no-startup-id pactl
 bindsym $mod+mod1+z exec --no-startup-id xfce4-taskmanager;focus
 bindsym control+mod1+p exec --no-startup-id pamac-manager
 
-bindsym $mod+mod1+k exec urxvt -e mc;focus
 
 bindsym $mod+mod1+u exec --no-startup-id  swaymsg -t get_tree | jq -r '.. | select(.focused?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | grim -g - screenshot.png
 
@@ -98,18 +97,14 @@ workspace $ws2;
 bindsym $mod+mod1+l input 1133:49232:Logitech_USB-PS/2_Optical_Mouse left_handed enabled
 bindsym $mod+mod1+Shift+l input 1133:49232:Logitech_USB-PS/2_Optical_Mouse left_handed disabled
 
-### Output configuration
-#
-# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg ~/Pictures/Wallpapers/startscreen.png fill
-#
-# Example configuration:
-#
-  output eDP-1 resolution 1920x1080 position 1920,0
-  output HDMI-2 resolution 1920x1200
-
+################# Output configuration
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 # For laptop+xtra monitor: eDP-1 1920x1080 and HDMI-2  1920x1200
+output eDP-1 res 1920x1080 
+output HDMI-2 pos 1920 0 res 1920x1200
+focus output HDMI-2 
+
+output * bg ~/Pictures/Wallpapers/startscreen.png fill
 
 ### Idle configuration
 
