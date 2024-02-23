@@ -1,12 +1,12 @@
 # APPLICATIONS TO START AT BOOT
-# exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
 
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
-exec hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
-
-exec_always --no-startup-id autotiling
+exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+# exec hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+exec --no-startup-id autotiling
 exec --no-startup-id xfce4-power-manager &
+exec --no-startup-id blueman-applet &
 
 ### Variables
 set $mod Mod4
@@ -22,16 +22,27 @@ input type:keyboard xkb_numlock enabled
 
 ##################### Testing
 
-mode "logs" {
-    bindsym a exec alacritty -e nvim;mode "default";focus
+# Notification Daemon
+exec swaync
+
+# Toggle control center
+bindsym $mod+Shift+n exec swaync-client -t -sw
+
+mode "SysEdit" {
+    bindsym b exec alacritty -e nvim ~/.bashrc;mode "default";focus
+    bindsym s exec alacritty -e nvim ~/.config/sway/config;mode "default";focus
+    bindsym w exec alacritty -e nvim ~/.config/waybar/config;mode "default";focus
 
     # Return to default mode
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+i exec "notify-send 'a' 'Start Neovim'";mode "logs"
 
-exec --no-startup-id blueman-applet &
+# https://wiki.archlinux.org/title/Desktop_notifications
+# notify-send --> https://specifications.freedesktop.org/notification-spec/latest/ar01s02.html
+# --icon= --> Choose from: https://specifications.freedesktop.org/icon-naming-spec/icon-naming-spec-latest.html 
+bindsym $mod+i exec "notify-send '==Edit System Files==\n b - .bashrc\n w - Waybar \n s - Sway' --icon=dialog-information"; \
+        mode "SysEdit"
 
 # Laptop touchpad
 # bindgesture swipe:right workspace prev
@@ -79,7 +90,7 @@ bindsym $mod+mod1+a exec --no-startup-id pavucontrol-qt;focus
 bindsym $mod+mod1+b exec --no-startup-id firefox;focus;border none
 bindsym $mod+mod1+Shift+b workspace $ws5; exec --no-startup-id brave;border none
 bindsym $mod+mod1+c exec --no-startup-id code;focus
-bindsym $mod+mod1+e exec alacritty -e vim;focus
+bindsym $mod+mod1+e exec alacritty -e nvim;focus
 bindsym $mod+mod1+f exec --no-startup-id catfish;focus;border none
 bindsym $mod+mod1+g exec --no-startup-id gimp;focus
 bindsym $mod+mod1+m exec --no-startup-id nwg-look
