@@ -21,6 +21,13 @@ set $menu xfce4-appfinder
 input type:keyboard xkb_numlock enabled
 
 ##################### Testing
+################# Output configuration
+# You can get the names of your outputs by running: swaymsg -t get_outputs
+# For laptop+xtra monitor: eDP-1 1920x1080 and HDMI-2  1920x1200
+output eDP-1 res 1920x1080 
+# output HDMI-2 pos 1920 0 res 1920x120
+output HDMI-2 res 1920x1200
+# focus output HDMI-2 
 
 # Notification Daemon
 exec swaync
@@ -32,7 +39,7 @@ mode "SysEdit" {
     bindsym b exec alacritty -e nvim ~/.bashrc;mode "default";focus
     bindsym s exec alacritty -e nvim ~/.config/sway/config;mode "default";focus
     bindsym w exec alacritty -e nvim ~/.config/waybar/config;mode "default";focus
-
+    bindsym Shift+w exec alacritty -e nvim ~/.config/waybar/style.css;mode "default";focus
     # Return to default mode
     bindsym Return mode "default"
     bindsym Escape mode "default"
@@ -41,7 +48,7 @@ mode "SysEdit" {
 # https://wiki.archlinux.org/title/Desktop_notifications
 # notify-send --> https://specifications.freedesktop.org/notification-spec/latest/ar01s02.html
 # --icon= --> Choose from: https://specifications.freedesktop.org/icon-naming-spec/icon-naming-spec-latest.html 
-bindsym $mod+i exec "notify-send '==Edit System Files==\n b - .bashrc\n w - Waybar \n s - Sway' --icon=dialog-information"; \
+bindsym $mod+i exec "notify-send '==Edit System Files==\n b - .bashrc\n s - Sway\n  w - Waybar \n W - Waybar CSS' --icon=dialog-information"; \
         mode "SysEdit"
 
 # Laptop touchpad
