@@ -22,6 +22,10 @@ input type:keyboard xkb_numlock enabled
 
 ##################### Testing
 
+### Need to keep an eye on the size of: .local/share/sddm/wayland-session.log ###
+
+
+
 # Notification Daemon
 exec swaync
 
@@ -87,8 +91,8 @@ bindsym $mod+Shift+Return exec --no-startup-id thunar;focus
 bindsym $mod+Shift+KP_Enter exec --no-startup-id thunar;focus
 
 bindsym $mod+mod1+a exec --no-startup-id pavucontrol-qt;focus
-bindsym $mod+mod1+b exec --no-startup-id firefox;focus;border none
-bindsym $mod+mod1+Shift+b workspace $ws5; exec --no-startup-id brave;border none
+bindsym $mod+mod1+b exec --no-startup-id firefox;focus;
+bindsym $mod+mod1+Shift+b workspace $ws5; exec --no-startup-id brave;
 bindsym $mod+mod1+c exec --no-startup-id code;focus
 bindsym $mod+mod1+e exec alacritty -e nvim;focus
 bindsym $mod+mod1+f exec --no-startup-id catfish;focus;border none
