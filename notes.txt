@@ -1,3 +1,8 @@
+
+journalctl --system --since="2024-02-26 11:40"
+
+git config pull.rebase falsegit config pull.rebase false
+
 # The manual pages
 man -k sway
 man sway.2
@@ -12,6 +17,8 @@ swaymsg -t get_tree | grep "app_id"
 
 # Display id's en mouse etc
 swaymsg -t get_outputs
+
+inxi -Gxx | grep compositor
 
 A lot of modifications are available through xkb_options. They can be found in /usr/share/X11/xkb/symbols/{altwin,capslock,compose,ctrl} and the respective option name in /usr/share/X11/xkb/rules/base.
 

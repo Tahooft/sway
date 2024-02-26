@@ -1,11 +1,10 @@
 # APPLICATIONS TO START AT BOOT
-
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
-exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+exec dbus-update-activation-environment --all DISPLAY WAYLAND_DISPLAY SWAYSOCK
 # exec hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
 exec --no-startup-id autotiling
-exec --no-startup-id xfce4-power-manager &
+# exec --no-startup-id xfce4-power-manager &
 exec --no-startup-id blueman-applet &
 
 ### Variables
@@ -41,7 +40,7 @@ mode "SysEdit" {
 # https://wiki.archlinux.org/title/Desktop_notifications
 # notify-send --> https://specifications.freedesktop.org/notification-spec/latest/ar01s02.html
 # --icon= --> Choose from: https://specifications.freedesktop.org/icon-naming-spec/icon-naming-spec-latest.html 
-bindsym $mod+i exec "notify-send '==Edit System Files==\n b - .bashrc\n w - Waybar \n s - Sway' --icon=dialog-information"; \
+bindsym $mod+i exec "notify-send 'Edit System Files==\n b - .bashrc\n  s - Sway\n w - Waybar \n' --icon=dialog-information"; \
         mode "SysEdit"
 
 # Laptop touchpad
@@ -87,9 +86,9 @@ bindsym $mod+Shift+Return exec --no-startup-id thunar;focus
 bindsym $mod+Shift+KP_Enter exec --no-startup-id thunar;focus
 
 bindsym $mod+mod1+a exec --no-startup-id pavucontrol-qt;focus
-bindsym $mod+mod1+b exec --no-startup-id firefox;focus;border none
-bindsym $mod+mod1+Shift+b workspace $ws5; exec --no-startup-id brave;border none
-bindsym $mod+mod1+c exec --no-startup-id code;focus
+bindsym $mod+mod1+b exec --no-startup-id firefox;focus;
+bindsym $mod+mod1+Shift+b workspace $ws5; exec --no-startup-id brave
+bindsym $mod+mod1+c exec --no-startup-id code
 bindsym $mod+mod1+e exec alacritty -e nvim;focus
 bindsym $mod+mod1+f exec --no-startup-id catfish;focus;border none
 bindsym $mod+mod1+g exec --no-startup-id gimp;focus
@@ -124,9 +123,9 @@ bindsym $mod+mod1+Shift+l input 1133:49232:Logitech_USB-PS/2_Optical_Mouse left_
 ################# Output configuration
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 # For laptop+xtra monitor: eDP-1 1920x1080 and HDMI-2  1920x1200
-output eDP-1 res 1920x1080 
-output HDMI-2 pos 1920 0 res 1920x1200
-focus output HDMI-2 
+# output eDP-1 res 1920x1080 
+output HDMI-A-1 res 1920x1200
+# focus output HDMI-2 
 
 output * bg ~/Pictures/Wallpapers/startscreen.png fill
 
@@ -246,17 +245,6 @@ bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
 bindsym $mod+0 workspace $ws10
-
-# workspace $ws1 output $secondMonitor
-# workspace $ws2 output $firstMonitor
-# workspace $ws3 output $firstMonitor
-# workspace $ws4 output $firstMonitor
-# workspace $ws5 output $firstMonitor 
-# workspace $ws6 output $secondMonitor
-# workspace $ws7 output $secondMonitor
-# workspace $ws8 output $secondMonitor
-# workspace $ws9 output $firstMonitor
-# workspace $ws10 output $firstMonitor
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1; workspace $ws1 
