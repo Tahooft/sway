@@ -1,7 +1,26 @@
 
 journalctl --system --since="2024-02-26 11:40"
+sudo journalctl -f
+sudo journalctl --system --output=verbose --since="2024-02-26 11:40" -f
+
+
+Stopping 'systemd-journald.service', but its triggering units are still active:
+systemd-journald.socket, systemd-journald-dev-log.socket
+
+Depending on the program, it may be necessary to silence standard error messages though be careful so you don’t end up silencing important error messages entirely.
+Exec=bash -c "/usr/bin/exampleapp >/dev/null"
+#Exec=bash -c "/usr/bin/exampleapp >/dev/null 2>&1"
+
+
+
 
 git config pull.rebase falsegit config pull.rebase false
+
+
+sudo pacman -S gdm
+sudo systemctl enable gdm.service -f
+yay -S gdm-settings
+
 
 # The manual pages
 man -k sway
