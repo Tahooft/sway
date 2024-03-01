@@ -6,6 +6,7 @@ echo "  0)This script"
 echo "  1)Sway config"
 echo "  2)Waybar config"
 echo "  3).bashrc"
+echo "  4)Ly config"
 echo ""
 
 
@@ -16,6 +17,7 @@ case $n in
   1) nvim "$HOME/.config/sway/config";;
   2) nvim "$HOME/.config/waybar/config";;
   3) nvim "$HOME/.bashrc";;
+  4) sudo nvim "/etc/ly/config.ini";;
 
   *) echo "invalid option";;
 esac
