@@ -1,0 +1,42 @@
+################# Popups  control                  
+popup_during_fullscreen smart
+
+################# floating or tiled rules
+for_window [title="File Operation Progress"] \
+    floating enable, \
+    border pixel 1, \
+    sticky enable, \
+    resize set width 40 ppt height 30 ppt
+
+for_window [floating] move position center
+# for_window [title="copying"] floating enable
+# for_window [title="deleting"] floating enable
+# for_window [title="moving"] floating enable
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="^preferences$"] floating enable
+for_window [window_role="setup"] floating enable
+for_window [app_id="Thunar"] focus
+for_window [app_id="bleachbit"] floating disable
+for_window [app_id="blueberry.py"] floating enable
+# for_window [app_id="Brasero"] floating disable
+# for_window [app_id="Galculator"] floating enable
+for_window [app_id="gnome-disks"] floating disable
+for_window [app_id="^gnome-font-viewer$"] floating enable
+# for_window [app_id="Hexchat"] floating disable
+for_window [app_id="imagewriter"] floating enable
+for_window [app_id="font-manager"] floating enable
+for_window [app_id="nitrogen"] floating disable
+for_window [app_id="pavucontrol"] floating disable
+for_window [app_id="peek"] floating enable
+# for_window [app_id="^Spotify$"] floating disable
+for_window [app_id="System-config-printer.py"] floating enable
+for_window [app_id="usb-creator-gtk"] floating enable
+for_window [app_id="^vlc$"] floating disable
+for_window [app_id="xfburn"] floating disable
+for_window [app_id="xfce4-appfinder"] floating enable
+for_window [app_id="xfce4-settings-manager"] floating disable
+for_window [app_id="xfce4-taskmanager"] floating enable
+for_window [instance="variety"] floating disable
+for_window [title="^terminator Preferences$"] floating enable
+for_window [instance="gimp"] floating disable
+for_window [window_role="^gimp-toolbox-color-dialog$"] floating enable
