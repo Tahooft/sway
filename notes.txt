@@ -1,8 +1,30 @@
 
+subtitleedit
+
+
+
+There are several ways how to identify whether an application is using Wayland or XWayland:
+    Select the window using xwininfo or xprop. Run:
+ xwininfo
+Your mouse pointer should change to a cross under X11,
+
+
+sudo pacman -S gdm
+sudo systemctl enable gdm.service -f
+yay -S gdm-settings
+
+
+# exec /usr/libexec/xdg-desktop-portal --verbose -r > ~/logs/xdg-desktop-portal.log 2>&1
+# did a:
+pacman -S xdg-desktop-portal-gtk
+
+# enabled this one in the hope it helps with xdg-desktop-portal-gtk --> NOPE
+systemctl enable systemd-resolved.service 
+
+
 journalctl --system --since="2024-02-26 11:40"
 sudo journalctl -f
-sudo journalctl --system --output=verbose --since="2024-02-26 11:40" -f
-
+sudo journalctl --system --output=verbose -f
 
 Stopping 'systemd-journald.service', but its triggering units are still active:
 systemd-journald.socket, systemd-journald-dev-log.socket
@@ -11,15 +33,9 @@ Depending on the program, it may be necessary to silence standard error messages
 Exec=bash -c "/usr/bin/exampleapp >/dev/null"
 #Exec=bash -c "/usr/bin/exampleapp >/dev/null 2>&1"
 
-
-
-
 git config pull.rebase falsegit config pull.rebase false
 
 
-sudo pacman -S gdm
-sudo systemctl enable gdm.service -f
-yay -S gdm-settings
 
 
 # The manual pages

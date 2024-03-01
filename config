@@ -1,11 +1,10 @@
 # APPLICATIONS TO START AT BOOT
-exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
-exec dbus-update-activation-environment --all DISPLAY WAYLAND_DISPLAY SWAYSOCK
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
-# exec hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
 exec --no-startup-id autotiling
 # exec --no-startup-id xfce4-power-manager &
-exec --no-startup-id blueman-applet &
+# exec --no-startup-id blueman-applet &
+
+exec --no-startup-id rfkill block all
 
 ### Variables
 set $mod Mod4
@@ -87,11 +86,13 @@ bindsym $mod+Shift+KP_Enter exec --no-startup-id thunar;focus
 
 bindsym $mod+mod1+a exec --no-startup-id pavucontrol-qt;focus
 bindsym $mod+mod1+b exec --no-startup-id firefox;focus;
-bindsym $mod+mod1+Shift+b workspace $ws5; exec --no-startup-id brave
+bindsym $mod+mod1+Shift+b workspace $ws5; exec --no-startup-id brave --password-store=basic
 bindsym $mod+mod1+c exec --no-startup-id code
 bindsym $mod+mod1+e exec alacritty -e nvim;focus
 bindsym $mod+mod1+f exec --no-startup-id catfish;focus;border none
 bindsym $mod+mod1+g exec --no-startup-id gimp;focus
+# https://unix.stackexchange.com/questions/256518/disable-the-wireless-network-adapter-in-arch
+bindsym $mod+mod1+k exec --no-startup-id rfkill block 1
 bindsym $mod+mod1+m exec --no-startup-id nwg-look
 bindsym $mod+mod1+p exec --no-startup-id pragha;focus
 bindsym $mod+mod1+q exec --no-startup-id qbittorrent;exec "notify-send 'QBitTorrent' 'Started'";focus
@@ -395,7 +396,7 @@ bindsym $mod+Shift+b exec swaymsg bar mode toggle bar-1
 
 default_border none
 default_floating_border none
-font pango:monospace 0
+font pango:monospace 8
 titlebar_padding 1
 titlebar_border_thickness 0
 
@@ -418,4 +419,4 @@ bar {
 # exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
 # exec hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
 
-#include /etc/sway/config.d/*
+include /etc/sway/config.d/*
