@@ -9,5 +9,6 @@ focus_follows_mouse yes
 
 ################# Mouse left-or righthanded
 # To find mouse id:  swaymsg -t get_inputs
+input 1133:49232:Logitech_USB-PS/2_Optical_Mouse left_handed enabled
 bindsym $mod+mod1+l input 1133:49232:Logitech_USB-PS/2_Optical_Mouse left_handed enabled
 bindsym $mod+mod1+Shift+l input 1133:49232:Logitech_USB-PS/2_Optical_Mouse left_handed disabled

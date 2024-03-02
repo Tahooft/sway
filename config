@@ -7,6 +7,7 @@ exec --no-startup-id autotiling
 # exec --no-startup-id megasync
 ### Kill WiFi and BlueTooth
 exec --no-startup-id rfkill block all
+# nm-applet --indicator &
 
 ### Variables
 set $mod Mod4
@@ -17,11 +18,22 @@ set $left h
 set $right l 
 
 set $term alacritty
-set $menu xfce4-appfinder
+# set $menu xfce4-appfinder
+# run drun dmenu
+set $menu "wofi -S drun -H 70% -O alphabetical"  
 
 input type:keyboard xkb_numlock enabled
 
 ##################### Testing
+
+### Opacity
+for_window [app_id="thunar"]            	opacity 0.80
+for_window [app_id="telegram-desktop"]		opacity 0.95
+# for_window [app_id="code"] 	                opacity 0.95
+for_window [app_id="catfish"] 	                opacity 0.95
+for_window [app_id="pragha"]                   	opacity 0.95
+for_window [app_id="subl"]                   	opacity 0.95
+
 bindsym $mod+Shift+u exec alacritty -e "$HOME/.config/sway/scripts/quickedit.sh"
 bindsym $mod+n exec --no-startup-id ~/.config/sway/scripts/wallpaper.sh
 
@@ -63,7 +75,6 @@ bindsym $mod+mod1+t exec --no-startup-id telegram-desktop;focus
 bindsym $mod+mod1+v exec gnome-boxes;focus;exec "notify-send 'Gnome-Boxes' 'Started'"
 bindsym $mod+mod1+w exec --no-startup-id azote
 bindsym $mod+mod1+y exec --no-startup-id freeciv-gtk3;exec --no-startup-id pactl set-sink-volume 0 20%;bar mode hide
-bindsym $mod+mod1+z exec --no-startup-id xfce4-taskmanager;focus
 
 bindsym $mod+mod1+u exec --no-startup-id  swaymsg -t get_tree | jq -r '.. | select(.focused?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | grim -g - screenshot.png
 
