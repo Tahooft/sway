@@ -12,3 +12,7 @@
 #
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
+
+################# backlight for laptop                      
+# bindsym $mod+F11 exec --no-startup-id brightnessctl -dec 20 # decrease screen brightness
+# bindsym $mod+F12 exec --no-startup-id brightnessctl -inc 20 # increase screen brightness

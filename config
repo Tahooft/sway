@@ -27,17 +27,14 @@ input type:keyboard xkb_numlock enabled
 ##################### Testing
 
 ### Opacity
-for_window [app_id="thunar"]            	opacity 0.80
-for_window [app_id="telegram-desktop"]		opacity 0.95
-# for_window [app_id="code"] 	                opacity 0.95
-for_window [app_id="catfish"] 	                opacity 0.95
-for_window [app_id="pragha"]                   	opacity 0.95
-for_window [app_id="subl"]                   	opacity 0.95
+for_window [app_id="thunar"]            	opacity 0.85
+for_window [app_id="telegram-desktop"]		opacity 0.80
+for_window [app_id="catfish"] 	                opacity 0.85
+for_window [app_id="pragha"]                   	opacity 0.70
+for_window [app_id="subl"]                   	opacity 0.85
 
 bindsym $mod+Shift+u exec alacritty -e "$HOME/.config/sway/scripts/quickedit.sh"
 bindsym $mod+n exec --no-startup-id ~/.config/sway/scripts/wallpaper.sh
-
-exec --no-startup-id firefox;focus;border none
 
 # Clipboard {{{
     bindsym $mod+c exec clipman pick -t wofi
@@ -53,10 +50,8 @@ include $HOME/.config/sway/conf.d/*
 output * bg ~/Pictures/Wallpapers/startscreen.png fill
 
 ################# My keybindings
-
 bindsym $mod+Shift+Return exec --no-startup-id thunar;focus
 bindsym $mod+Shift+KP_Enter exec --no-startup-id thunar;focus
-
 bindsym $mod+mod1+a exec --no-startup-id pavucontrol-qt;focus
 bindsym $mod+mod1+b exec --no-startup-id firefox;focus;
 bindsym $mod+mod1+Shift+b workspace $ws5; exec --no-startup-id brave --password-store=basic
@@ -72,16 +67,12 @@ bindsym $mod+mod1+q exec --no-startup-id qbittorrent;exec "notify-send 'QBitTorr
 bindsym $mod+mod1+r exec alacritty -e ranger;focus
 bindsym $mod+mod1+s exec --no-startup-id subl;focus
 bindsym $mod+mod1+t exec --no-startup-id telegram-desktop;focus
+bindsym $mod+mod1+u exec --no-startup-id  swaymsg -t get_tree | jq -r '.. | select(.focused?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | grim -g - screenshot.png
 bindsym $mod+mod1+v exec gnome-boxes;focus;exec "notify-send 'Gnome-Boxes' 'Started'"
 bindsym $mod+mod1+w exec --no-startup-id azote
-bindsym $mod+mod1+y exec --no-startup-id freeciv-gtk3;exec --no-startup-id pactl set-sink-volume 0 20%;bar mode hide
-
-bindsym $mod+mod1+u exec --no-startup-id  swaymsg -t get_tree | jq -r '.. | select(.focused?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | grim -g - screenshot.png
-
-bindsym $mod+o floating toggle; [floating] resize set 1500 1180; move position 220 24
-bindsym $mod+p floating toggle; [floating] resize set 1500 400; move position 220 24
 
 ################ Start at Workspace 2
+exec --no-startup-id firefox;focus;border none
 workspace $ws2;
 
 ################# Output configuration
@@ -93,27 +84,21 @@ workspace $ws2;
 # outputname = display id = HDMI-A-1
 # swaymsg "output HDMI-A-1 power toggle"
 
-### Key bindings
+### Some default Key bindings
+bindsym $mod+Return exec $term
+bindsym $mod+KP_Enter exec --no-startup-id $term;focus
+# Kill focused window
+bindsym $mod+q kill
+# Start your launcher
+bindsym $mod+d exec $menu
+# Reload the configuration file
+bindsym $mod+Shift+c reload
 
-    # Start a terminal
-    bindsym $mod+Return exec $term
-    bindsym $mod+KP_Enter exec --no-startup-id $term;focus
-
-    # Kill focused window
-    bindsym $mod+q kill
-    bindsym $mod+Shift+q kill
-
-    # Start your launcher
-    bindsym $mod+d exec $menu
-
-    # Reload the configuration file
-    bindsym $mod+Shift+c reload
-    # bindsym --to-code $mod+Alt+c reload
-
-    # Exit sway (logs you out of your Wayland session)
+# Exit sway (logs you out of your Wayland session)
  #    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 bindsym $mod+Shift+e exec swaymsg exit
-    bindsym Pause exit
+# Fast exit
+bindsym Pause exit
 
 ################# audioctl
 bindsym mod1+F10 exec --no-startup-id pactl set-sink-volume 0 -5%
@@ -125,10 +110,6 @@ bindsym $mod+mod1+F11 exec --no-startup-id pactl set-sink-volume 0 85%
 bindsym mod1+Shift+F10 exec --no-startup-id playerctl next
 bindsym mod1+Shift+F11 exec --no-startup-id playerctl play-pause
 bindsym mod1+Shift+F12 exec --no-startup-id playerctl stop
-################# backlight for laptop                      
-# bindsym $mod+F11 exec --no-startup-id brightnessctl -dec 20 # decrease screen brightness
-# bindsym $mod+F12 exec --no-startup-id brightnessctl -inc 20 # increase screen brightness
-
 
 ############### Scratchpad:Cm
 # Move the currently focused window to the scratchpad

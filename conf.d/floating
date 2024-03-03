@@ -2,10 +2,10 @@
 popup_during_fullscreen smart
 
 ################# floating or tiled rules
+# removed: sticky
 for_window [title="File Operation Progress"] \
     floating enable, \
     border pixel 1, \
-    sticky enable, \
     resize set width 40 ppt height 30 ppt
 
 for_window [floating] move position center
