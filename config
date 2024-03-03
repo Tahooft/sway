@@ -7,7 +7,7 @@ exec --no-startup-id autotiling
 # exec --no-startup-id megasync
 ### Kill WiFi and BlueTooth
 exec --no-startup-id rfkill block all
-# nm-applet --indicator &
+exec --no-startup-id nm-applet --indicator &
 
 ### Variables
 set $mod Mod4
@@ -20,11 +20,13 @@ set $right l
 set $term alacritty
 # set $menu xfce4-appfinder
 # run drun dmenu
-set $menu "wofi -S drun -H 70% -O alphabetical"  
-
+set $dmenu "wofi -S run -H 70% -O alphabetical"  
+set $menu "wofi -S drun -H 70% -O alphabetical" 
 input type:keyboard xkb_numlock enabled
 
 ##################### Testing
+
+bindsym $mod+m exec --no-startup-id alacritty -e ~/.config/sway/scripts/mpvtube.sh
 
 ### Opacity
 for_window [app_id="thunar"]            	opacity 0.85
@@ -72,8 +74,8 @@ bindsym $mod+mod1+v exec gnome-boxes;focus;exec "notify-send 'Gnome-Boxes' 'Star
 bindsym $mod+mod1+w exec --no-startup-id azote
 
 ################ Start at Workspace 2
-exec --no-startup-id firefox;focus;border none
-workspace $ws2;
+# exec --no-startup-id firefox;focus;border none
+# workspace $ws2;
 
 ################# Output configuration
 # You can get the names of your outputs by running: swaymsg -t get_outputs
@@ -91,6 +93,7 @@ bindsym $mod+KP_Enter exec --no-startup-id $term;focus
 bindsym $mod+q kill
 # Start your launcher
 bindsym $mod+d exec $menu
+bindsym $mod+Shift+d exec $dmenu
 # Reload the configuration file
 bindsym $mod+Shift+c reload
 

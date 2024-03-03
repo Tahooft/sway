@@ -7,6 +7,7 @@ echo "  1)Sway config"
 echo "  2)Waybar config"
 echo "  3).bashrc"
 echo "  4)Ly config"
+echo "  5)mpvtube.sh"
 echo ""
 
 
@@ -18,6 +19,7 @@ case $n in
   2) nvim "$HOME/.config/waybar/config";;
   3) nvim "$HOME/.bashrc";;
   4) sudo nvim "/etc/ly/config.ini";;
+  5) nvim "$HOME/.config/sway/scripts/mpvtube.sh";;
 
   *) echo "invalid option";;
 esac
