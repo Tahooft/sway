@@ -27,6 +27,7 @@ input type:keyboard xkb_numlock enabled
 ##################### Testing
 
 bindsym $mod+m exec --no-startup-id alacritty -e ~/.config/sway/scripts/mpvtube.sh
+bindsym $mod+Shift+m exec --no-startup-id alacritty -e ~/.config/sway/scripts/dltube.sh 
 
 ### Opacity
 for_window [app_id="thunar"]            	opacity 0.85

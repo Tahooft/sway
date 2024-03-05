@@ -13,7 +13,7 @@ echo ""
 
 
 # read -n 1
-read n -t 7
+read n 
 case $n in
   0) nvim "$HOME/.config/sway/scripts/quickedit.sh";;
   1) nvim "$HOME/.config/sway/config";;
