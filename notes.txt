@@ -68,7 +68,7 @@ Examples:
 
 
 # Fun to try
-links2
+w3m
 
 
 clamav

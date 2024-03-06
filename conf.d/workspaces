@@ -40,13 +40,14 @@ bindsym $mod+Shift+0 move container to workspace $ws10; workspace $ws10
 
 ################# assign applications to workspaces 
 # Assign application to start on a specific workspace - use class as application has no app_idd
-assign [app_id="firefox"]                                       → $ws2
+# assign [app_id="firefox"]                                       → $ws2
 assign [class="code|Code"]                                      → $ws4
 # assign [class="brave-browser|Brave-browser"]                    → $ws5
 assign [app_id="qutebrowser|chromium"]                          → $ws5
 assign [app_id="qbittorrent|org.qbittorrent.qBittorrent"]       → $ws6
 assign [app_id="org.telegram.desktop"]                          → $ws7
 assign [app_id="subl"]                                          → $ws8
-assign [app_id="pragha|gimp"]                                   → $ws9
+assign [app_id="pragha|Gimp"]                                   → $ws9
+assign [class="Gimp"]                                   → $ws9
 assign [app_id="gnome-boxes|Gnome-boxes"]		                → $ws9
 # assign [class="vlc"]                                            → $ws10
