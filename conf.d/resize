@@ -22,5 +22,5 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-bindsym $mod+o floating toggle; [floating] resize set 70ppt 90ppt; move position center
-bindsym $mod+p floating toggle; [floating] resize set 1500 400; move position 220 24
+bindsym $mod+o floating toggle; [floating] resize set 75ppt 90ppt; move position center
+bindsym $mod+p floating toggle; [floating] resize set 95ppt 95ppt; move position center
