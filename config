@@ -18,10 +18,10 @@ set $left h
 set $right l 
 
 set $term alacritty
-# set $menu xfce4-appfinder
+set $menu xfce4-appfinder
 # run drun dmenu
-set $dmenu "wofi -S run -H 70% -O alphabetical"  
-set $menu "wofi -S drun -H 70% -O alphabetical" 
+# set $dmenu "wofi -S run -H 70% -O alphabetical"  
+set $dmenu "wofi -S drun -H 70% -O alphabetical" 
 input type:keyboard xkb_numlock enabled
 
 ##################### Testing
