@@ -3,6 +3,12 @@ subtitleedit
 
 
 
+
+No need to have multiple scratchpads. If you want to show/hide a specific app, here's an example: bindsym $mod+Shift+t [app_id=org.qbittorrent.qBittorrent] scratchpad show
+And if you want to show/hide a group of apps, use conmarks.
+
+
+
 There are several ways how to identify whether an application is using Wayland or XWayland:
     Select the window using xwininfo or xprop. Run:
  xwininfo

@@ -3,12 +3,19 @@ popup_during_fullscreen smart
 
 ################# floating or tiled rules
 # removed: sticky
+# for_window [app_id="mpv"] \
+#     floating enable, \
+#     border pixel 1, \
+#     resize set width 100 ppt height 100 ppt, \
+#     move position center
+
 for_window [title="File Operation Progress"] \
     floating enable, \
     border pixel 1, \
     resize set width 40 ppt height 30 ppt
 
 for_window [floating] move position center
+
 # for_window [title="copying"] floating enable
 # for_window [title="deleting"] floating enable
 # for_window [title="moving"] floating enable

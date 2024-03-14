@@ -8,6 +8,7 @@ exec --no-startup-id autotiling
 ### Kill WiFi and BlueTooth
 exec --no-startup-id rfkill block all
 exec --no-startup-id nm-applet --indicator &
+exec --no-startup-id dunst &
 
 ### Variables
 set $mod Mod4
@@ -55,7 +56,7 @@ bindsym $mod+n exec --no-startup-id ~/.config/sway/scripts/wallpaper.sh
 
 include $HOME/.config/sway/conf.d/*
 
-output * bg ~/Pictures/Wallpapers/startscreen.png fill
+# output * bg ~/Pictures/Wallpapers/startscreen.png fill
 
 ################# My keybindings
 bindsym $mod+Shift+Return exec --no-startup-id thunar;focus
