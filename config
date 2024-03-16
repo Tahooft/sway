@@ -10,6 +10,9 @@ exec --no-startup-id rfkill block all
 exec --no-startup-id nm-applet --indicator &
 exec --no-startup-id dunst &
 
+# Testen?
+# exec /usr/libexec/xdg-desktop-portal
+
 ### Variables
 set $mod Mod4
 
@@ -22,10 +25,15 @@ set $term alacritty
 set $menu xfce4-appfinder
 # run drun dmenu
 # set $dmenu "wofi -S run -H 70% -O alphabetical"  
-set $dmenu "wofi -S drun -H 70% -O alphabetical" 
-input type:keyboard xkb_numlock enabled
+set $dmenu "wofi -S drun -H 70% -O alphabetical --lines=15" 
 
 ##################### Testing
+
+# I/O configuration {{{
+input type:keyboard {
+    # xkb_options "caps:swapescape,xkb_numlock enabled,terminate:ctrl_alt_bksp"
+    xkb_options "xkb_numlock enabled,terminate:ctrl_alt_bksp"
+}
 
 
 ################# Keylist
@@ -90,6 +98,17 @@ bindsym $mod+mod1+w exec --no-startup-id azote
 # outputname = display id = HDMI-A-1
 # swaymsg "output HDMI-A-1 power toggle"
 
+# Example configuration:
+# You can get the names of your inputs by running: swaymsg -t get_inputs
+# Put your touchpad's ID to replace "Touchpad-ID" (keep the quotation marks)
+
+# input type:touchpad {
+#       dwt enabled
+#       tap enabled
+#       natural_scroll enabled
+#       pointer_accel 0.35
+# }
+
 ### Some default Key bindings
 bindsym $mod+Return exec $term
 bindsym $mod+KP_Enter exec --no-startup-id $term;focus
@@ -101,22 +120,41 @@ bindsym $mod+Shift+d exec $dmenu
 # Reload the configuration file
 bindsym $mod+Shift+c reload
 
+
+
 # Exit sway (logs you out of your Wayland session)
  #    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 bindsym $mod+Shift+e exec swaymsg exit
 # Fast exit
 bindsym Pause exit
 
-################# audioctl
-bindsym mod1+F10 exec --no-startup-id pactl set-sink-volume 0 -5%
-bindsym mod1+F11 exec --no-startup-id pactl set-sink-volume 0 +5%
-bindsym mod1+F12 exec --no-startup-id pactl set-sink-mute 0 toggle
-bindsym $mod+mod1+F10 exec --no-startup-id pactl set-sink-volume 0 25%
-bindsym $mod+mod1+F11 exec --no-startup-id pactl set-sink-volume 0 85%
-################ playctl
-bindsym mod1+Shift+F10 exec --no-startup-id playerctl next
-bindsym mod1+Shift+F11 exec --no-startup-id playerctl play-pause
-bindsym mod1+Shift+F12 exec --no-startup-id playerctl stop
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86Search exec bemenu-run
+
+#
+# Backlight
+#
+    # bindsym XF86MonBrightnessUp exec light -A 5 && light -G | cut -d'.' -f1 > $SWAYSOCK.wob 
+    # bindsym XF86MonBrightnessDown exec light -U 5 && light -G | cut -d'.' -f1 > $SWAYSOCK.wob
+
+# ################# audioctl
+# bindsym mod1+F10 exec --no-startup-id pactl set-sink-volume 0 -5%
+# bindsym mod1+F11 exec --no-startup-id pactl set-sink-volume 0 +5%
+# bindsym mod1+F12 exec --no-startup-id pactl set-sink-mute 0 toggle
+# bindsym $mod+mod1+F10 exec --no-startup-id pactl set-sink-volume 0 25%
+# bindsym $mod+mod1+F11 exec --no-startup-id pactl set-sink-volume 0 85%
+# ################ playctl
+# bindsym mod1+Shift+F10 exec --no-startup-id playerctl next
+# bindsym mod1+Shift+F11 exec --no-startup-id playerctl play-pause
+# bindsym mod1+Shift+F12 exec --no-startup-id playerctl stop
 
 ############### Scratchpad:Cm
 # Move the currently focused window to the scratchpad
