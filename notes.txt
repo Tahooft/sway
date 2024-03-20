@@ -1,5 +1,9 @@
 
-subtitleedit
+# For autologin add: /etc/sddm.conf.d/autologin.conf with the next lines (mm):
+
+[Autologin]
+User=john
+Session=plasma
 
 
 

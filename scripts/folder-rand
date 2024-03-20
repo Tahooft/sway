@@ -1,0 +1,10 @@
+#!/bin/bash
+
+folder-rand() {
+    folder=$(find ~/Pictures/Wallpapers/* -type d | shuf -n 1)
+    notify-send -t 6000 "New folder: " $folder
+    echo $folder > ~/wallpaperfolder.txt
+    }
+    
+
+folder-rand

@@ -1,0 +1,18 @@
+#!/bin/bash
+
+folder=`cat ~/wallpaperfolder.txt`
+# folder=~/Pictures/Wallpapers/Using/
+echo $folder
+
+wallpaper=$(find $folder  -type f | shuf -n 1)
+
+wallpaper-rand() {
+    killall swaybg
+    sleep 0.05
+    swaybg -i  $wallpaper -o '*' &
+
+notify-send -t 6000 "New wallpaper: " $wallpaper
+disown
+}
+
+wallpaper-rand

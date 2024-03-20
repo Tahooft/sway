@@ -51,7 +51,8 @@ for_window [app_id="pragha"]                   	opacity 0.70
 for_window [app_id="subl"]                   	opacity 0.85
 
 bindsym $mod+Shift+u exec alacritty -e "$HOME/.config/sway/scripts/quickedit.sh"
-bindsym $mod+n exec --no-startup-id ~/.config/sway/scripts/wallpaper.sh
+bindsym $mod+n exec --no-startup-id ~/.config/sway/scripts/wallpaper-rand
+bindsym $mod+Shift+n exec --no-startup-id ~/.config/sway/scripts/folder-rand
 
 # Clipboard {{{
     bindsym $mod+c exec clipman pick -t wofi
@@ -85,7 +86,6 @@ bindsym $mod+mod1+r exec alacritty -e ranger;focus
 bindsym $mod+mod1+s exec --no-startup-id subl;focus
 bindsym $mod+mod1+t exec --no-startup-id telegram-desktop;focus
 bindsym $mod+mod1+u exec --no-startup-id  swaymsg -t get_tree | jq -r '.. | select(.focused?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | grim -g - screenshot.png
-bindsym $mod+mod1+v exec gnome-boxes;focus;exec "notify-send 'Gnome-Boxes' 'Started'"
 bindsym $mod+mod1+w exec --no-startup-id azote
 
 ################# Output configuration
