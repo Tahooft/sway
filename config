@@ -6,7 +6,7 @@ exec --no-startup-id autotiling
 # exec --no-startup-id dropbox start
 # exec --no-startup-id megasync
 ### Kill WiFi and BlueTooth
-exec --no-startup-id rfkill block all
+# exec --no-startup-id rfkill block all
 exec --no-startup-id nm-applet --indicator &
 exec --no-startup-id dunst &
 
@@ -146,15 +146,15 @@ bindsym XF86Search exec bemenu-run
     # bindsym XF86MonBrightnessDown exec light -U 5 && light -G | cut -d'.' -f1 > $SWAYSOCK.wob
 
 # ################# audioctl
-# bindsym mod1+F10 exec --no-startup-id pactl set-sink-volume 0 -5%
-# bindsym mod1+F11 exec --no-startup-id pactl set-sink-volume 0 +5%
-# bindsym mod1+F12 exec --no-startup-id pactl set-sink-mute 0 toggle
-# bindsym $mod+mod1+F10 exec --no-startup-id pactl set-sink-volume 0 25%
-# bindsym $mod+mod1+F11 exec --no-startup-id pactl set-sink-volume 0 85%
-# ################ playctl
-# bindsym mod1+Shift+F10 exec --no-startup-id playerctl next
-# bindsym mod1+Shift+F11 exec --no-startup-id playerctl play-pause
-# bindsym mod1+Shift+F12 exec --no-startup-id playerctl stop
+bindsym mod1+F10 exec --no-startup-id pactl set-sink-volume 0 -5%
+bindsym mod1+F11 exec --no-startup-id pactl set-sink-volume 0 +5%
+bindsym mod1+F12 exec --no-startup-id pactl set-sink-mute 0 toggle
+bindsym $mod+mod1+F10 exec --no-startup-id pactl set-sink-volume 0 25%
+bindsym $mod+mod1+F11 exec --no-startup-id pactl set-sink-volume 0 85%
+################ playctl
+bindsym mod1+Shift+F10 exec --no-startup-id playerctl next
+bindsym mod1+Shift+F11 exec --no-startup-id playerctl play-pause
+bindsym mod1+Shift+F12 exec --no-startup-id playerctl stop
 
 ############### Scratchpad:Cm
 # Move the currently focused window to the scratchpad
