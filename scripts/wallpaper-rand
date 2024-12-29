@@ -1,6 +1,6 @@
 #!/bin/bash
 
-folder=`cat ~/wallpaperfolder.txt`
+folder=`cat ~/Pictures/wallpaperfolder.txt`
 wallpaper=$(find $folder  -type f | shuf -n 1)
 
 wallpaper-rand() {
